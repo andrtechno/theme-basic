@@ -8,5 +8,8 @@
     "minimum-stability": "stable",
     "extra": {
         "installer-name": "basic"
+    },
+    "require": {
+        "panix/wgt-owlcarousel": "dev-master"
     }
 }
