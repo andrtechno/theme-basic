@@ -1,0 +1,12 @@
+{
+    "name": "panix/theme-basic",
+    "description": "Basic theme",
+    "keywords": ["pixelion-cms"],
+    "homepage": "https://github.com/andrtechno/theme-basic",
+    "type": "pixelion-theme",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "extra": {
+        "installer-name": "dashboard"
+    }
+}
