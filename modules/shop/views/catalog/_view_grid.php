@@ -92,7 +92,7 @@ use yii\helpers\HtmlPurifier;
                 <div class="col-6 col-sm-6 col-lg-5 text-right">
                     <?php
                     if ($model->isAvailable) {
-                        echo Html::button(Yii::t('cart/default', 'BUY'), ['onclick'=>'javascript:cart.add(' . $model->id . ')', 'class' => 'btn btn-warning btn-buy']);
+                        echo Html::button(Yii::t('cart/default', 'BUY'), ['onclick'=>'javascript:cart.add(this)', 'class' => 'btn btn-warning btn-buy']);
                     } else {
                         \panix\mod\shop\bundles\NotifyAsset::register($this);
                         echo Html::button(Yii::t('shop/default', 'NOT_AVAILABLE'), ['onclick'=>'javascript:notify(' . $model->id . ');', 'class' => 'text-danger']);

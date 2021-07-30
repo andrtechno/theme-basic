@@ -161,7 +161,7 @@ echo \panix\ext\fancybox\Fancybox::widget([
                         <div class="col-sm-9 mb-2">
                             <div class="reviews">
                                 <a href="#w1-tab1" data-tabid="#comments"
-                                   data-toggle="tab">(<?= Yii::t('app/default', 'REVIEWS', ['n' => $model->commentsCount]) ?>
+                                   data-toggle="tab">(<?= Yii::t('app/default', 'REVIEWS', ['n' => $model->getReviews()->count()]) ?>
                                     )</a>
                             </div>
                         </div>
@@ -257,7 +257,12 @@ echo \panix\ext\fancybox\Fancybox::widget([
                                 }
                                 echo '<br/>';
                                 if (Yii::$app->hasModule('wishlist') && !Yii::$app->user->isGuest) {
-                                    // $this->widget('mod.wishlist.widgets.WishlistWidget', array('pk' => $model->id));
+                                    echo \panix\mod\wishlist\widgets\WishListWidget::widget([
+                                        'model' => $model,
+                                        'linkOptions' => ['class' => 'btn2 btn-wishlist'],
+                                        'addText' => '<span>' . Yii::t('wishlist/default', 'ADD') . '</span>',
+                                        'removeText' => '<span>' . Yii::t('wishlist/default', 'REMOVE') . '</span>',
+                                    ]);
                                 }
                                 ?>
                             </div>
@@ -291,12 +296,32 @@ echo \panix\ext\fancybox\Fancybox::widget([
                                 <?php
 
 
+                                echo \panix\ext\rating\RatingInput::widget([
+                                    'name' => 'product-rating',
+                                    'id' => 'product-rating',
+                                    'value' => $model->ratingScore,
+                                    'options' => [
+                                        'hints' => [
+                                            Yii::t('shop/default', 'RATING_SCORE', $model->ratingScore),
+                                            Yii::t('shop/default', 'RATING_SCORE', $model->ratingScore),
+                                            Yii::t('shop/default', 'RATING_SCORE', $model->ratingScore),
+                                            Yii::t('shop/default', 'RATING_SCORE', $model->ratingScore),
+                                            Yii::t('shop/default', 'RATING_SCORE', $model->ratingScore),
+                                        ],
+                                        'readOnly' => true,
+                                       // 'path' => $this->theme->asset[1] . '/img/',
+                                       // 'starOff' => 'star-off.svg',
+                                       // 'starOn' => 'star-on.svg',
+                                       // 'starHalf' => 'star-half.svg',
+
+                                    ]
+                                ]);
                                 if (Yii::$app->hasModule('cart')) {
                                     //  $this->widget('mod.cart.widgets.buyOneClick.BuyOneClickWidget', array('pk' => $model->id));
                                     // Yii::import('mod.cart.CartModule');
                                     // CartModule::registerAssets();
-                                    echo panix\mod\cart\widgets\buyOneClick\BuyOneClickWidget::widget(['pk' => $model->id]);
-                                    echo Html::button(Yii::t('cart/default', 'BUY'), ['onclick'=>'javascript:cart.add(' . $model->id . ')', 'class' => 'btn btn-primary']);
+                                    echo panix\mod\cart\widgets\buyOneClick\BuyOneClickWidget::widget(['model' => $model]);
+                                    echo Html::button(Yii::t('cart/default', 'BUY'), ['onclick'=>'javascript:cart.add(this)', 'class' => 'btn btn-primary']);
                                 }
 
 
@@ -359,12 +384,12 @@ echo \panix\ext\fancybox\Fancybox::widget([
                         'options' => ['id' => 'attributes'],
                     ];
                 }
-                if (Yii::$app->hasModule('comments')) {
+
 
                     $tabs[] = [
-                        'label' => Yii::t('app/default', 'REVIEWS', ['n' => $model->getCommentsCount()]),
-                        'content' => $this->render('tabs/_comments', ['model' => $model]),
-                        'options' => ['id' => 'comments'],
+                        'label' => Yii::t('app/default', 'REVIEWS', ['n' => $model->getReviews()->count()]),
+                        'content' => $this->render('tabs/_reviews', ['model' => $model]),
+                        'options' => ['id' => 'reviews'],
                     ];
                     /* $tabs[] = [
                          'label' => Yii::t('app/default', 'REVIEWS', ['n' => $model->commentsCount]),
@@ -372,7 +397,7 @@ echo \panix\ext\fancybox\Fancybox::widget([
                          'content' => 'empty',
                          'options' => ['id' => 'comments','data-url'=>\yii\helpers\Url::to(['/shop/product/comments', 'slug' => $model->slug,'tab'=>'comments'])],
                      ];*/
-                }
+
                 if ($model->relatedProducts) {
                     $tabs[] = [
                         'label' => 'Связи',
