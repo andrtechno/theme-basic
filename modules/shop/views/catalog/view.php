@@ -3,7 +3,8 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use panix\mod\shop\widgets\categories\CategoriesWidget;
-use panix\mod\shop\widgets\filtersnew\FiltersWidget;
+use panix\mod\shop\widgets\filtersnew2\FiltersWidget;
+
 
 ?>
 
@@ -19,8 +20,8 @@ use panix\mod\shop\widgets\filtersnew\FiltersWidget;
             <?php
             echo FiltersWidget::widget([
                 'model' => $this->context->dataModel,
-                'attributes' => $this->context->eavAttributes,
-
+                'data' => $this->context->filter,
+                'count'=>true
             ]);
 
             ?>

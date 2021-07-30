@@ -296,7 +296,7 @@ echo \panix\ext\fancybox\Fancybox::widget([
                                     // Yii::import('mod.cart.CartModule');
                                     // CartModule::registerAssets();
                                     echo panix\mod\cart\widgets\buyOneClick\BuyOneClickWidget::widget(['pk' => $model->id]);
-                                    echo Html::a(Yii::t('cart/default', 'BUY'), 'javascript:cart.add(' . $model->id . ')', ['class' => 'btn btn-primary']);
+                                    echo Html::button(Yii::t('cart/default', 'BUY'), ['onclick'=>'javascript:cart.add(' . $model->id . ')', 'class' => 'btn btn-primary']);
                                 }
 
 
@@ -305,7 +305,7 @@ echo \panix\ext\fancybox\Fancybox::widget([
                         </div>
                     <?php } else {
                         \panix\mod\shop\bundles\NotifyAsset::register($this);
-                        echo Html::a(Yii::t('shop/default', 'NOT_AVAILABLE'), 'javascript:notify(' . $model->id . ');', ['class' => 'btn btn-link']);
+                        echo Html::button(Yii::t('shop/default', 'NOT_AVAILABLE'), ['onclick'=>'javascript:notify(' . $model->id . ');', 'class' => 'btn btn-link']);
                     } ?>
                 </div>
 

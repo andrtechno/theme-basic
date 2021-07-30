@@ -43,7 +43,7 @@ use yii\helpers\HtmlPurifier;
                     <?php //$this->widget('ext.rating.StarRating', array('model' => $model, 'readOnly' => true)); ?>
                     <br/>
                     <span class="product-review">
-                <a href="<?= \yii\helpers\Url::to($model->getUrl()) ?>#comments_tab">(<?= Yii::t('app/default', 'REVIEWS', ['n' => $model->commentsCount]); ?>
+                <a href="<?= \yii\helpers\Url::to($model->getUrl()) ?>#comments_tab">(<?= Yii::t('app/default', 'REVIEWS', ['n' => $model->getReviews()->count()]); ?>
                     )</a>
             </span>
                 </div>
@@ -51,15 +51,14 @@ use yii\helpers\HtmlPurifier;
                     <?php
                     if (Yii::$app->hasModule('compare')) {
                         echo \panix\mod\compare\widgets\CompareWidget::widget([
-                            'pk' => $model->id,
+                            'model' => $model,
                             'skin' => 'icon',
                             'linkOptions' => ['class' => 'btn btn-compare']
                         ]);
                     }
                     if (Yii::$app->hasModule('wishlist') && !Yii::$app->user->isGuest) {
                         echo \panix\mod\wishlist\widgets\WishListWidget::widget([
-                            'pk' => $model->id,
-                            'skin' => 'icon',
+                            'model' => $model,
                             'linkOptions' => ['class' => 'btn btn-wishlist']
                         ]);
                     }
@@ -93,10 +92,10 @@ use yii\helpers\HtmlPurifier;
                 <div class="col-6 col-sm-6 col-lg-5 text-right">
                     <?php
                     if ($model->isAvailable) {
-                        echo Html::a(Yii::t('cart/default', 'BUY'), 'javascript:cart.add(' . $model->id . ')', ['class' => 'btn btn-warning btn-buy']);
+                        echo Html::button(Yii::t('cart/default', 'BUY'), ['onclick'=>'javascript:cart.add(' . $model->id . ')', 'class' => 'btn btn-warning btn-buy']);
                     } else {
                         \panix\mod\shop\bundles\NotifyAsset::register($this);
-                        echo Html::a(Yii::t('shop/default', 'NOT_AVAILABLE'), 'javascript:notify(' . $model->id . ');', ['class' => 'text-danger']);
+                        echo Html::button(Yii::t('shop/default', 'NOT_AVAILABLE'), ['onclick'=>'javascript:notify(' . $model->id . ');', 'class' => 'text-danger']);
                     }
                     ?>
                 </div>
