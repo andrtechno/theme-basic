@@ -29,7 +29,7 @@ use yii\helpers\Html;
     </div>
     <div class="catalog-content">
         <div class="heading-gradient">
-            <h1><?= Html::encode(($this->h1) ? $this->h1 : Yii::t('shop/default', 'MANUFACTURER') . ' ' . $this->context->pageName); ?></h1>
+            <h1><?= Html::encode(($this->h1) ? $this->h1 : Yii::t('shop/default', 'BRAND') . ' ' . $this->context->pageName); ?></h1>
         </div>
         <?php if (!empty($model->description)) { ?>
             <div>

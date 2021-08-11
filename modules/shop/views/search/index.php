@@ -1,13 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use panix\mod\shop\widgets\filtersnew\FiltersWidget;
-for ($i = 0; $i <= 50; $i++) {
-    echo Yii::t('shop/default', 'SEARCH_RESULT', [
-        'query' => 'Тест',
-        'count' => $i,
-    ]).'<br>';
-}
+use panix\mod\shop\widgets\filtersnew2\FiltersWidget;
+
 ?>
 
 <div class="container-fluid">
@@ -23,8 +18,8 @@ for ($i = 0; $i <= 50; $i++) {
                 <?php
                 echo FiltersWidget::widget([
                     'model' => $this->context->dataModel,
-                    'attributes' => $this->context->eavAttributes,
-
+                    'data' => $this->context->filter,
+                    'count'=>true
                 ]);
 
                 ?>

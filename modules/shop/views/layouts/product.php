@@ -14,13 +14,10 @@ use panix\engine\widgets\Breadcrumbs;
     <?= Html::csrfMetaTags() ?>
     <?php $this->head() ?>
 
-    <?php ?>
+
     <?php
-    /*if (is_null(Yii::$app->seo->block('title'))) {
-        echo '<title>' . Html::encode($this->title) . '</title>';
-    } else {
-        echo '<title>' . Html::encode(Yii::$app->seo->block('title')) . '</title>';
-    }*/
+    \panix\engine\JsonLDHelper::addBreadcrumbList();
+    \panix\engine\JsonLDHelper::registerScripts();
     ?>
 
 

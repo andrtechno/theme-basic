@@ -5,7 +5,11 @@ use yii\helpers\Html;
 use panix\mod\shop\widgets\categories\CategoriesWidget;
 use panix\mod\shop\widgets\filtersnew2\FiltersWidget;
 
+/**
+ * @var $this \yii\web\View
+ */
 
+\panix\engine\JsonLDHelper::addProduct($model);
 ?>
 
 <div class="container-fluid2 catalog-container">
@@ -23,7 +27,6 @@ use panix\mod\shop\widgets\filtersnew2\FiltersWidget;
                 'data' => $this->context->filter,
                 'count'=>true
             ]);
-
             ?>
         </div>
     </div>
@@ -35,6 +38,7 @@ use panix\mod\shop\widgets\filtersnew2\FiltersWidget;
 
         <div id="listview-ajax">
             <?php
+
             echo $this->render('listview', [
                 'itemView' => $itemView,
                 'provider' => $provider,

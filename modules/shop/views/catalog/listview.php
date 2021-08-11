@@ -23,3 +23,5 @@ echo \panix\engine\widgets\ListView::widget([
         'spinnerTemplate' => '<div class="ias-spinner"><div>Loading...</div></div>',
     ],
 ]);
+
+

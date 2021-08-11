@@ -28,6 +28,7 @@ a {
 
 .loading {
   position: relative;
+
   &:before {
     content: '';
     background-image: url('../images/ajax.gif');
@@ -62,16 +63,20 @@ table {
     vertical-align: middle;
     padding: .50rem .25rem;
   }
+
   &.table th {
     text-align: center;
   }
+
   &.table-striped thead th {
     border: 0;
   }
+
   .form-control {
     border: 1px solid rgba(0, 0, 0, 0.125);
     padding: 0.375rem 0.75rem;
   }
+
   .alert {
     margin-bottom: 0;
   }
@@ -86,6 +91,7 @@ table {
   max-height: 12em;
   position: relative;
   @include transition(5s);
+
   &:before {
     content: '';
     display: block;
@@ -96,6 +102,7 @@ table {
     height: 4em;
     @include gradient(rgba(255, 255, 255, 0), #fff);
   }
+
   &.active {
     display: block;
     height: 100%;
@@ -129,9 +136,11 @@ body {
   font-family: $font-family-default;
   font-weight: 400;
   font-size: $font-size;
+
   footer {
     height: map-get($footer-heights, sm);
   }
+
   @media (min-width: 768px) {
     margin-bottom: map-get($footer-heights, md);
     footer {
@@ -156,10 +165,12 @@ body {
   .input-group {
     position: relative;
     z-index: 0;
+
     input {
       padding-right: 2.5rem;
     }
   }
+
   a.btn-show-password {
     position: absolute;
     right: 0;
@@ -167,6 +178,7 @@ body {
     z-index: 1;
     padding: 0.375rem 0.75rem;
     color: #BEBEBE;
+
     &:hover {
       text-decoration: none;
     }
@@ -205,6 +217,7 @@ button.close {
   height: 10px;
   position: relative;
   margin: 1rem 0;
+
   h1, h2, h3, h4, h5, h6 {
     z-index: 1;
     top: -15px;
@@ -275,9 +288,11 @@ h2 {
     text-align: center;
     margin-right: 4px;
     float: left;
+
     &:last-child {
       margin-right: 0px;
     }
+
     .box {
       background-color: #49aeb2;
       color: #fff;
@@ -286,11 +301,13 @@ h2 {
       vertical-align: middle;
       width: 45px;
       line-height: 15px;
+
       .key {
         display: block;
         font-size: 14px;
         font-weight: 700;
       }
+
       .value {
         display: block;
         font-size: 9px;
@@ -517,6 +534,7 @@ h2 {
   position: relative;
   text-align: center;
   z-index: 0;
+
   &::before {
     position: absolute;
     content: '';
@@ -526,6 +544,7 @@ h2 {
     left: 0;
     top: 14px;
   }
+
   span {
     padding: 0 1rem;
     background-color: #fff;
@@ -556,6 +575,7 @@ h2 {
     padding: 0.75rem 0.75rem;
     font-size: 15px;
     font-weight: 600;
+
     &::before {
       position: absolute;
       content: "\f047";
@@ -576,6 +596,7 @@ h2 {
 .btn-auth-facebook {
   .btn {
     background: #3B5998;
+
     &::before {
       content: "\f047";
       background-color: #263C68;
@@ -586,6 +607,7 @@ h2 {
 .btn-auth-google_oauth {
   .btn {
     background: #F44336;
+
     &::before {
       content: "\f048";
       background-color: #C53126;
@@ -598,11 +620,13 @@ footer {
   position: absolute;
   bottom: 0;
   width: 100%;
+
   .footer-contact,
   .footer-schedule {
     position: relative;
     padding-left: 40px;
     display: inline-block;
+
     &:before {
       font-size: 33px;
       color: $color-warning;
@@ -612,19 +636,24 @@ footer {
       top: 0;
     }
   }
+
   .footer-contact {
     color: #BEBEBE;
+
     &:before {
       content: "\f017";
     }
   }
+
   .footer-schedule {
     //margin-bottom: 1rem;
     height: 40px;
     line-height: 40px;
+
     &:before {
       content: "\f121";
     }
+
     @media (min-width: 768px) {
       margin-top: .5rem;
     }
@@ -738,6 +767,7 @@ a.phone:visited {
 .kievstar {
   padding-left: 25px;
   position: relative;
+
   &:before {
     position: absolute;
     height: 100%;
@@ -769,6 +799,7 @@ a#pixelion {
   font-size: 14px;
   height: 40px;
   display: inline-block;
+
   &:hover {
     text-decoration: none;
   }
@@ -813,10 +844,12 @@ ul.social-list {
 */
 .header-phones {
   text-align: center;
+
   a[href^="tel:"] {
     color: $text-color;
     font-weight: 600;
     display: block;
+
     &:hover {
       color: $link-color-hover;
     }
@@ -862,9 +895,11 @@ a[href^="tel:"] {
 .navbar-toggler {
   cursor: pointer;
   padding: 0;
+
   &:focus {
     outline: none;
   }
+
   span {
     height: 2px;
     width: 30px;
@@ -884,6 +919,7 @@ $header-height-center-desktop: 150px;
 
 .nav-link {
   color: $text-color;
+
   &:hover,
   &:focus {
     color: $link-color-hover;
@@ -893,10 +929,12 @@ $header-height-center-desktop: 150px;
 .navbar-nav {
   .nav-link {
     color: #fff;
+
     &:hover {
       color: $text-color;
     }
   }
+
   .nav,
   .tab-content {
     a,
@@ -915,6 +953,7 @@ $header-height-center-desktop: 150px;
 
 header {
   margin-bottom: 1rem;
+
   #header-top {
     padding: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
@@ -923,6 +962,7 @@ header {
 
     }
   }
+
   #header-center {
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -962,6 +1002,7 @@ header {
   white-space: nowrap;
   overflow: hidden;
   position: relative;
+
   &:after {
     content: "";
     position: absolute;
@@ -972,20 +1013,25 @@ header {
     right: 0;
     @include gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
   }
+
   .breadcrumb-item {
     display: inline-block;
     white-space: nowrap;
     letter-spacing: 0.4px;
+
     a {
       color: #BEBEBE;
       text-decoration: underline;
+
       &:hover {
         color: $link-color-hover;
       }
     }
+
     + .breadcrumb-item {
       padding-left: 0.5rem;
       position: relative;
+
       &::before {
         display: inline-block; // Suppress underlining of the separator in modern browsers
         padding-right: 0.5rem;
@@ -996,16 +1042,20 @@ header {
         top: 5px;
         position: absolute;
       }
+
       span {
         padding-left: 1rem;
       }
     }
+
     + .breadcrumb-item:hover::before {
       text-decoration: underline;
     }
+
     + .breadcrumb-item:hover::before {
       text-decoration: none;
     }
+
     &.active {
       color: #BEBEBE;
     }
@@ -1025,12 +1075,14 @@ header {
 
 .card.filter-block {
   border: 0;
+
   .card-header {
     border-width: 2px;
     background-color: transparent;
     padding-left: 0;
     padding-right: 0;
   }
+
   .card-body {
     padding-right: 0;
     padding-left: 0;
@@ -1240,6 +1292,7 @@ p {
   color: $text-color;
   padding-right: 0;
   padding-left: 0;
+
   &:focus {
     border-color: $color-warning;
     background-color: transparent;
@@ -1272,3 +1325,57 @@ p {
 @import "common";
 @import "shop";
 @import "comments";
+
+
+.ui-spinner-input {
+  text-align: center;
+}
+
+$spinner-width-button:36px;
+.spinner {
+  overflow: inherit;
+  width: 150px;
+  border: 1px solid $ui-spinner-button-color;
+  position: relative;
+  height: $spinner-width-button;
+  display: flex;
+
+  button {
+    top: 0;
+    position: absolute;
+    border: 0;
+    width: $spinner-width-button;
+    height: 100%;
+    background: none;
+    font-size: 16px;
+    font-weight: bold;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    &:first-child {
+      left: 0;
+    }
+
+    &:last-child {
+      right: 0;
+    }
+  }
+
+
+  input {
+    margin: 0 $spinner-width-button;
+    padding: 6px 5px;
+    width: 100%;
+    border:0;
+    font-size: 16px;
+    font-weight: bold;
+    border-left: 1px solid $ui-spinner-button-color;
+    border-right: 1px solid $ui-spinner-button-color;
+    height: 100%;
+    text-align: center;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

@@ -1,8 +1,8 @@
 <?php
 
 use panix\engine\Html;
-use yii\helpers\HtmlPurifier;
 
+$mainImage = $model->getMainImage('340x265');
 ?>
 
 <div class="product1">
@@ -23,7 +23,7 @@ use yii\helpers\HtmlPurifier;
 
     <div class="product-image d-flex justify-content-center align-items-center">
         <?php
-        echo Html::a(Html::img($model->getMainImage('340x265')->url, ['alt' => $model->name, 'class' => 'img-fluid loading']), $model->getUrl(), ['data-pjax'=>0]);
+        echo Html::a(Html::img($mainImage->url, ['alt' => $model->name, 'class' => 'img-fluid loading']), $model->getUrl(), ['data-pjax'=>0]);
         //echo Html::link(Html::image(Yii::app()->createUrl('/site/attachment',array('id'=>33)), $data->name, array('class' => 'img-fluid')), $data->getUrl(), array());
         ?>
     </div>
@@ -33,17 +33,17 @@ use yii\helpers\HtmlPurifier;
     <div class="">
 
         <?php
-        echo $model->beginCartForm();
+       // echo $model->beginCartForm();
         ?>
 
 
         <div class="product-data">
             <div class="row no-gutters">
                 <div class="col-6 col-sm-6 col-lg-6 d-flex align-items-center">
-                    <?php //$this->widget('ext.rating.StarRating', array('model' => $model, 'readOnly' => true)); ?>
+
                     <br/>
                     <span class="product-review">
-                <a href="<?= \yii\helpers\Url::to($model->getUrl()) ?>#comments_tab">(<?= Yii::t('app/default', 'REVIEWS', ['n' => $model->getReviews()->count()]); ?>
+                <a href="<?= \yii\helpers\Url::to($model->getUrl()) ?>#comments_tab">(<?= Yii::t('app/default', 'REVIEWS', ['n' => $model->reviewsCount]); ?>
                     )</a>
             </span>
                 </div>
@@ -103,13 +103,9 @@ use yii\helpers\HtmlPurifier;
 
         </div>
 
-        <div class="action btn-group2">
-            <?php print_r($model->eav_box); ?>
-
-        </div>
 
 
-        <?php echo $model->endCartForm(); ?>
+        <?php //echo $model->endCartForm(); ?>
     </div>
 </div>
 

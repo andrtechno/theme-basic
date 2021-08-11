@@ -4,6 +4,7 @@ use panix\engine\Html;
 
 /**
  * @var $model \panix\mod\shop\models\Product
+ * @var $mainImage \panix\mod\shop\models\ProductImage
  */
 $config = Yii::$app->settings->get('shop');
 
@@ -46,10 +47,11 @@ echo \panix\ext\fancybox\Fancybox::widget([
 <div class="container">
     <div class="row">
         <div class="col-sm-6 col-md-5">
+
             <a id="main-image" style="max-height: 400px" class="d-flex align-items-center"
-               href="<?= $model->getMainImage()->url ?>"
+               href="<?= $mainImage->get() ?>"
                data-fancybox="gallery">
-                <img class="img-fluid m-auto" src="<?= $model->getMainImage('400x400')->url ?>" alt=""/>
+                <img class="img-fluid m-auto" src="<?= $mainImage->get('400x400') ?>" alt=""/>
             </a>
 
             <?php \panix\ext\owlcarousel\OwlCarouselWidget::begin([
@@ -82,14 +84,18 @@ echo \panix\ext\fancybox\Fancybox::widget([
             ]);
             ?>
             <?php
-            foreach ($model->getImages() as $k => $image) {
-                echo Html::a(Html::img($image->getUrl('100x100'), [
+
+
+
+
+            foreach ($model->getImages()->all() as $k => $image) {
+                echo Html::a(Html::img($image->get('100x100'), [
                     'alt' => $image->alt_title,
                     'class' => 'img-fluid img-thumbnail'
-                ]), $image->getUrl(), [
+                ]), $image->get(false,['watermark'=>false]), [
                     // 'data-fancybox' => 'gallery',
                     'data-caption' => Html::encode($model->name),
-                    'data-img' => $image->getUrl('400x400'),
+                    'data-img' => $image->get(),
                     'class' => 'thumb'
                 ]);
             }
@@ -155,8 +161,29 @@ echo \panix\ext\fancybox\Fancybox::widget([
                 <div class="info-container mt-3">
                     <div class="row">
                         <div class="col-sm-3 mb-2">
-                            <?php //$this->widget('ext.rating.StarRating', array('model' => $model)); ?>
-                            rating
+                            <?php
+                            echo \panix\ext\rating\RatingInput::widget([
+                                'name' => 'product-rating',
+                                'id' => 'product-rating',
+                                'value' => $model->ratingScore,
+                                'options' => [
+                                    'hints' => [
+                                        Yii::t('shop/default', 'RATING_SCORE', $model->ratingScore),
+                                        Yii::t('shop/default', 'RATING_SCORE', $model->ratingScore),
+                                        Yii::t('shop/default', 'RATING_SCORE', $model->ratingScore),
+                                        Yii::t('shop/default', 'RATING_SCORE', $model->ratingScore),
+                                        Yii::t('shop/default', 'RATING_SCORE', $model->ratingScore),
+                                    ],
+                                    'readOnly' => true,
+                                    // 'path' => $this->theme->asset[1] . '/img/',
+                                    // 'starOff' => 'star-off.svg',
+                                    // 'starOn' => 'star-on.svg',
+                                    // 'starHalf' => 'star-half.svg',
+
+                                ]
+                            ]);
+                            ?>
+
                         </div>
                         <div class="col-sm-9 mb-2">
                             <div class="reviews">
@@ -170,25 +197,25 @@ echo \panix\ext\fancybox\Fancybox::widget([
                             <div class="col-sm-3 mb-2"><?= $model->getAttributeLabel('sku') ?>:</div>
                             <div class="col-sm-9 mb-2"><?= Html::encode($model->sku); ?></div>
                         <?php } ?>
-                        <?php if ($model->manufacturer_id) { ?>
+                        <?php if ($model->brand_id) { ?>
                             <?php /*Yii::app()->clientScript->registerScript('popover.manufacturer', "$('.manufacturer-popover').popover({
                                     html: true,
                                     trigger: 'focus',
                                     content: function () {
-                                        return $('#manufacturer-image').html();
+                                        return $('#brand-image').html();
                                         }
                                     });"); */ ?>
-                            <div id="manufacturer-image" class="d-none">
-                                <?php //echo Html::img($model->manufacturer->getImageUrl('image','300x300'), array('alt'=>$model->manufacturer->name,'class' => 'img-fluid')) ?>
+                            <div id="brand-image" class="d-none">
+                                <?php //echo Html::img($model->brand->getImageUrl('image','300x300'), array('alt'=>$model->brand->name,'class' => 'img-fluid')) ?>
                                 <?php
-                                if (!empty($model->manufacturer->description)) {
-                                    echo $model->manufacturer->description;
+                                if (!empty($model->brand->description)) {
+                                    echo $model->brand->description;
                                 }
-                                echo Html::a(Html::encode($model->manufacturer->name), $model->manufacturer->getUrl(), ['class' => "btn btn-link"]);
+                                echo Html::a(Html::encode($model->brand->name), $model->brand->getUrl(), ['class' => "btn btn-link"]);
                                 ?>
                             </div>
-                            <div class="col-sm-3 mb-2"><?= $model->getAttributeLabel('manufacturer_id') ?>:</div>
-                            <div class="col-sm-9 mb-2"><?= Html::a(Html::encode($model->manufacturer->name), 'javascript:void(0)', ['title' => $model->getAttributeLabel('manufacturer_id'), 'class' => "manufacturer-popover"]); ?></div>
+                            <div class="col-sm-3 mb-2"><?= $model->getAttributeLabel('brand_id') ?>:</div>
+                            <div class="col-sm-9 mb-2"><?= Html::a(Html::encode($model->brand->name), 'javascript:void(0)', ['title' => $model->getAttributeLabel('brand_id'), 'class' => "brand-popover"]); ?></div>
                         <?php } ?>
                         <div class="col-sm-3 mb-2">Наличие:</div>
                         <div class="col-sm-9 mb-2">
@@ -276,9 +303,16 @@ echo \panix\ext\fancybox\Fancybox::widget([
                         <div class="row">
 
                             <div class="col-sm-4">
+
+                                <div class="spinner" data-product="<?= $model->id; ?>">
+                                    <?= Html::button('-',['data-action'=>'minus']); ?>
+                                    <?= Html::textInput("quantity",1); ?>
+                                    <?= Html::button('+',['data-action'=>'plus']); ?>
+                                </div>
+
                                 <?php
 
-                                echo yii\jui\Spinner::widget([
+                              /*  echo yii\jui\Spinner::widget([
                                     'name' => "quantity",
                                     'value' => 1,
                                     'clientOptions' => [
@@ -287,7 +321,7 @@ echo \panix\ext\fancybox\Fancybox::widget([
                                         'max' => 999
                                     ],
                                     'options' => ['class' => 'cart-spinner', 'product_id' => $model->id],
-                                ]);
+                                ]);*/
 
                                 ?>
                             </div>
@@ -296,30 +330,11 @@ echo \panix\ext\fancybox\Fancybox::widget([
                                 <?php
 
 
-                                echo \panix\ext\rating\RatingInput::widget([
-                                    'name' => 'product-rating',
-                                    'id' => 'product-rating',
-                                    'value' => $model->ratingScore,
-                                    'options' => [
-                                        'hints' => [
-                                            Yii::t('shop/default', 'RATING_SCORE', $model->ratingScore),
-                                            Yii::t('shop/default', 'RATING_SCORE', $model->ratingScore),
-                                            Yii::t('shop/default', 'RATING_SCORE', $model->ratingScore),
-                                            Yii::t('shop/default', 'RATING_SCORE', $model->ratingScore),
-                                            Yii::t('shop/default', 'RATING_SCORE', $model->ratingScore),
-                                        ],
-                                        'readOnly' => true,
-                                       // 'path' => $this->theme->asset[1] . '/img/',
-                                       // 'starOff' => 'star-off.svg',
-                                       // 'starOn' => 'star-on.svg',
-                                       // 'starHalf' => 'star-half.svg',
 
-                                    ]
-                                ]);
                                 if (Yii::$app->hasModule('cart')) {
-                                    //  $this->widget('mod.cart.widgets.buyOneClick.BuyOneClickWidget', array('pk' => $model->id));
-                                    // Yii::import('mod.cart.CartModule');
                                     // CartModule::registerAssets();
+                                    //\panix\mod\cart\CartAsset::register($this);
+                                    echo Yii::$app->cart->buy(Yii::t('cart/default', 'BUY'),$model,['class'=>'btn btn-primary']);
                                     echo panix\mod\cart\widgets\buyOneClick\BuyOneClickWidget::widget(['model' => $model]);
                                     echo Html::button(Yii::t('cart/default', 'BUY'), ['onclick'=>'javascript:cart.add(this)', 'class' => 'btn btn-primary']);
                                 }
@@ -360,7 +375,7 @@ echo \panix\ext\fancybox\Fancybox::widget([
     </div>
 </div>
 
-<?= $this->render('_kit', ['model' => $model]); ?>
+<?= $this->render('_kit', ['model' => $model,'mainImage'=>$mainImage]); ?>
 
 <div class="line-title"></div>
 <div class="container">

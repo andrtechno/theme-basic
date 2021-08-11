@@ -4042,4 +4042,51 @@ input#max_price {
   }
 }
 
+.ui-spinner-input {
+  text-align: center;
+}
+
+.spinner {
+  overflow: inherit;
+  width: 150px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  position: relative;
+  height: 36px;
+  display: flex;
+}
+.spinner button {
+  top: 0;
+  position: absolute;
+  border: 0;
+  width: 36px;
+  height: 100%;
+  background: none;
+  font-size: 16px;
+  font-weight: bold;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+.spinner button:first-child {
+  left: 0;
+}
+.spinner button:last-child {
+  right: 0;
+}
+.spinner input {
+  margin: 0 36px;
+  padding: 6px 5px;
+  width: 100%;
+  border: 0;
+  font-size: 16px;
+  font-weight: bold;
+  border-left: 1px solid rgba(0, 0, 0, 0.125);
+  border-right: 1px solid rgba(0, 0, 0, 0.125);
+  height: 100%;
+  text-align: center;
+}
+.spinner input:focus {
+  outline: none;
+}
+
 /*# sourceMappingURL=style.css.map */
