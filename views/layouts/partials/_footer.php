@@ -2,6 +2,9 @@
 use panix\engine\Html;
 
 $config = Yii::$app->settings->get('contacts');
+echo \panix\mod\cart\widgets\cart\CartWidget::modal([
+    'skin' => '@theme/widgets/cart/popup'
+]);
 ?>
 
 <footer id="footer">

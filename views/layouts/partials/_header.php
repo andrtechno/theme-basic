@@ -57,7 +57,7 @@ $config = Yii::$app->settings->get('contacts');
                         <?php } ?>
 
                         <?php if (Yii::$app->hasModule('wishlist')) {
-                            $count = Html::tag('span', (new \panix\mod\wishlist\components\WishListComponent)->count(), ['class' => 'badge badge-secondary', 'id' => 'countWishlist']);
+                            $count = Html::tag('span', (new \panix\mod\wishlist\components\WishListComponent)->count(), ['class' => 'badge badge-secondary wishlist-count']);
                             ?>
                             <li class="nav-item">
                                 <?= Html::a('<span class="d-none d-md-inline">' . Yii::t('wishlist/default', 'WISHLIST') . '</span> ' . $count, ['/wishlist'], ['class' => 'top-wishlist nav-link']) ?>
@@ -174,7 +174,10 @@ $config = Yii::$app->settings->get('contacts');
             </div>
             <div class="col-lg-3 col-md-6 d-flex align-items-center">
                 <div class="m-auto">
-                    <?php echo \panix\mod\cart\widgets\cart\CartWidget::widget(['skin' => 'dropdown']); ?>
+                    <?php echo \panix\mod\cart\widgets\cart\CartWidget::button([
+                        'skin' => '@theme/widgets/cart/button'
+                    ]); ?>
+
                 </div>
             </div>
         </div>
